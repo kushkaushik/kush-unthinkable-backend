@@ -1,8 +1,9 @@
-import { Body, Controller, Post , Req , Put , Delete , Get  , Res ,UploadedFile, UseInterceptors} from '@nestjs/common';
+import { Body, Controller, Post , Req , Put , Delete , Get  , Res ,UploadedFile, UseInterceptors, UseGuards} from '@nestjs/common';
 import { UserService } from './user.service';
 import { FileInterceptor  } from '@nestjs/platform-express'
 import {Express} from 'express'
 import {Multer} from 'multer'
+import { AuthGuard } from 'src/auth/auth.guard';
 
 
 @Controller('user')
@@ -24,6 +25,12 @@ export class UserController {
     @UseInterceptors(FileInterceptor('image'))
     async createUser(@Body() body  : any , @UploadedFile() file: Multer.File ){
         return await this.userService.create_new_user(body ,file )
+    }
+
+    @UseGuards(AuthGuard)
+    @Get('/all_user')
+    async showUser(@Req() req : any){
+        return await this.userService.show_user(req);
     }
 
 }

@@ -6,13 +6,15 @@ import { OtpService } from 'src/otp/otp.service';
 import { User } from 'src/schema/user';
 import { JwtService   } from '@nestjs/jwt';
 import { v2 as cloudinary } from 'cloudinary';
+import * as dotenv from 'dotenv'
 
-
+dotenv.config();
 cloudinary.config({
-    cloud_name: 'dewnfvlis',
-    api_key: '259829616915778',
-    api_secret: 'dOpMr4sCLf1YcwUDCLT-DtV5GnQ',
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_KEY,
+    api_secret: process.env.CLOUD_SECRET,
   });
+
 
 @Injectable()
 export class UserService {
@@ -116,6 +118,14 @@ export class UserService {
         }
     }
         
+    }
+
+
+
+    async show_user(req){
+        // console.log(req.user)
+        const _id = req.user._id;
+        return await this.userModule.find({ _id: { $ne: _id } }).exec();
     }
 
 
