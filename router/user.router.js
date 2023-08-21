@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
-const  userService = require('../service/user.service')
+const  userService = require('../service/user/user.service')
 const auth = require('../middleware/auth')
 
 

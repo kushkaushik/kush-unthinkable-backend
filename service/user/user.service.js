@@ -1,7 +1,7 @@
-const userModule = require('../schema/user.schema')
-const otpService = require('../service/otp.service')
+const userModule = require('../../schema/user.schema')
+const otpService = require('../otp/otp.service')
 const cloudinary = require('cloudinary').v2;
-const tok  =  require('../config/Generatetoken')
+const tok  =  require('../../config/Generatetoken')
 const createUser = async(number)=>{
     try{
         // const {number} = body;
